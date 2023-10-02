@@ -1,0 +1,10 @@
+*.pyc
+*~
+.vscode
+__pycache__
+exempl/
+venv/
+.env
+мотивация.doc
+hygrometer.jpg
+exit.txt
