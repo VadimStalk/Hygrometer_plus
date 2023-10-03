@@ -25,7 +25,7 @@ async def cmd_dry_tr(message: Message, state: FSMContext):
     """Function for requesting a dry value"""
     await message.answer(
         text="Давайте я рассчитаю относительную влажность воздуха(%).\n"
-        "Укажите температуру сухого термометра(диапозон от -40.9 до 40.9 c шагом 0.1): "
+        "Укажите температуру сухого термометра(диапозон от -40.9 °C до 40.9 °C c шагом 0.1): "
     )
     # Устанавливаем пользователю состояние "темп. сухого термометра"
     await state.set_state(TempData.dry_thermometer_readings)
@@ -36,8 +36,8 @@ async def dry_tr_chosen(message: Message, state: FSMContext):
     """Function for getting the dry thermometer value"""
     await state.update_data(chosen_dry=float(message.text))
     await message.answer(
-        text="Спасибо. Теперь, пожалуйста, укажите температуру \
-            смоченного термометра(диапозон от -40.9 до 40.9 c шагом 0.1): "
+        text="Спасибо. Теперь, пожалуйста, укажите температуру °C \
+            смоченного термометра(диапозон от -40.9 °C до 40.9 °C c шагом 0.1): "
     )
     await state.set_state(TempData.wetted_thermometer_readings)
 
@@ -48,7 +48,7 @@ async def dry_chosen_incorrectly(message: Message):
         text="Похоже что такое значение отсутствует в моих списках.\n"
             "Возможно вы указали значение неверно.\n"
             "Пожалуйста, попробуйте ввести значение \n"
-            "сухого термометра ещё раз(диапозон от -40.9 до 40.9 c шагом 0.1):")
+            "сухого термометра ещё раз(диапозон от -40.9 °C до 40.9 °C c шагом 0.1):")
     
 
 @router.message(TempData.wetted_thermometer_readings, F.text.in_(available_thermometer_readings))
@@ -66,8 +66,8 @@ async def wetted_tr_chosen(message: Message, state: FSMContext):
     ovv = round((100 * e_param / e_dry), 2)
     await message.answer(
         text=f"В вашем городе {city} атмосферное давление составляет: {pres_rt_st} мм рт.ст.\n"
-        f"Вы ввели значение сухого термометра {dry_temp}.\n"
-        f"Значение смоченного темометра {wetted_temp}.\n\n"
+        f"Вы ввели значение сухого термометра {dry_temp} °C.\n"
+        f"Значение смоченного темометра {wetted_temp} °C.\n\n"
         "В результате рассчетов, исходя из переданных вами данных, \n"
         f"Относительная влажность воздуха(%):  {ovv}."
     )
@@ -79,6 +79,6 @@ async def wetted_chosen_incorrectly(message: Message):
         text="Похоже что такое значение отсутствует в моих списках.\n"
             "Возможно вы указали значение неверно.\n"
             "Пожалуйста, попробуйте ввести значение \n"
-            "смоченного термометра ещё раз(диапозон от -40.9 до 40.9 c шагом 0.1):"
+            "смоченного термометра ещё раз(диапозон от -40.9 °C до 40.9 °C c шагом 0.1):"
     )
 

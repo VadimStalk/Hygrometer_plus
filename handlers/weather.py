@@ -32,6 +32,6 @@ async def get_chosen_city(message: Message):
         temp = data["main"]["temp"]
         feels_like = data["main"]["feels_like"]
         print(data)
-        await message.reply(f"Сейчас погода: {temp}, \n" f"ощущается как {feels_like}")
+        await message.reply(f"Сейчас погода: {temp} °C, \n" f"ощущается как {feels_like} °C")
     else:
         await message.answer(f"Уверен что правильно написал: {city_text}? Попробуй ещё")

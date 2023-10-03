@@ -18,6 +18,9 @@ async def get_ip_and_weather_data(message: types.Message):
     url = "http://ipinfo.io/json"
     response = urlopen(url)
     city = json.load(response)["city"]
+    # ip = json.load(response)
+    # print(ip)
+
     res = requests.get(
         f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv("API_KEY")}&units=metric',
         timeout=10,
@@ -27,7 +30,7 @@ async def get_ip_and_weather_data(message: types.Message):
         data = json.loads(res.text)
         print(data)
         temp = data["main"]["temp"]
-        answer = f"В городе {city} температура: {temp}"
+        answer = f"В городе {city} температура: {temp}°C"
         await message.answer(answer)
 
     else:
